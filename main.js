@@ -216,9 +216,9 @@ function showDate(date) {
     month: "long",
     day: "numeric",
   });
-  if (date.holidayName) {
-    holidayText.innerHTML = date.holidayName;
-  }
+
+  holidayText.innerHTML = date.holidayName || "";
+
   buttonDate = date;
   renderTasklist(date);
 }
