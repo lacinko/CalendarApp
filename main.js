@@ -3,6 +3,7 @@ const yearArr = Array(365).fill("");
 let buttonDate = { fullDate: new Date() };
 buttonDate.fullDate.setHours(00, 00, 00, 00);
 let newArr = [];
+//JSON.parse(localStorage.getItem("calendar")) ||
 let defaultMonth = buttonDate.fullDate.getMonth();
 
 const calendarContainer = document.querySelector(".calendar-container");
@@ -41,10 +42,18 @@ function fillDates(arr) {
       tasklist: [],
     });
   });
+  localStorage.setItem("calendar", JSON.stringify(newArr));
 }
 
-fillDates(yearArr);
-fetchHolidays(newArr);
+if (!localStorage.calendar) {
+  fillDates(yearArr);
+  fetchHolidays(newArr);
+  renderCalendar(newArr, defaultMonth);
+} else {
+  newArr = JSON.parse(localStorage.calendar);
+  newArr.map((date) => (date.fullDate = new Date(date.fullDate)));
+  renderCalendar(newArr, defaultMonth);
+}
 
 function renderCalendar(arr, month) {
   monthContainer.innerHTML = `<p>MON</p>
@@ -54,6 +63,7 @@ function renderCalendar(arr, month) {
   <p>FRI</p>
   <p>SAT</p>
   <p>SUN</p>`;
+  console.log(arr);
   arr.map((date, idx) => {
     if (month === date.fullDate.getMonth()) {
       let dateContainer = document.createElement("div");
@@ -92,7 +102,6 @@ function renderCalendar(arr, month) {
   });
 }
 
-renderCalendar(newArr, defaultMonth);
 //EVENT LISTENERS
 leftArrowButton.addEventListener("click", () => pickMonth("left"));
 rightArrowButton.addEventListener("click", () => pickMonth("right"));
@@ -291,6 +300,7 @@ function fetchHolidays(arr) {
       }
     });
   }
+  localStorage.setItem("calendar", JSON.stringify(newArr));
 }
 
 // = { ...date, holiday: true };
