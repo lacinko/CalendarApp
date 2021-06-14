@@ -1,16 +1,18 @@
-const startDate = new Date("December 31, 2020");
+let startDate = new Date("December 31, 2020");
 const yearArr = Array(365).fill("");
 let buttonDate = { fullDate: new Date() };
 buttonDate.fullDate.setHours(00, 00, 00, 00);
 let newArr = [];
 //JSON.parse(localStorage.getItem("calendar")) ||
 let defaultMonth = buttonDate.fullDate.getMonth();
+let defaultYear = startDate.getFullYear() + 1;
 
 const calendarContainer = document.querySelector(".calendar-container");
 const monthContainer = document.querySelector(".month-container");
 const monthText = document.querySelector(".render-month-text");
 const leftArrowButton = document.querySelector("#left-arrow-btn");
 const rightArrowButton = document.querySelector("#right-arrow-btn");
+const yearText = document.querySelector(".render-year-text");
 
 //MONTHS - CONTAINERS
 
@@ -35,6 +37,7 @@ const taskTextArea = document.querySelector("#task-text-area");
 const holidayText = document.querySelector(".holiday-text");
 
 function fillDates(arr) {
+  newArr = [];
   arr.map((item, idx) => {
     newArr.push({
       fullDate: new Date(startDate.setDate(startDate.getDate() + 1)),
@@ -42,20 +45,23 @@ function fillDates(arr) {
       tasklist: [],
     });
   });
-  localStorage.setItem("calendar", JSON.stringify(newArr));
+  localStorage.setItem(defaultYear, JSON.stringify(newArr));
 }
-
-if (!localStorage.calendar) {
-  fillDates(yearArr);
-  fetchHolidays(newArr);
-  renderCalendar(newArr, defaultMonth);
-} else {
-  newArr = JSON.parse(localStorage.calendar);
-  newArr.map((date) => (date.fullDate = new Date(date.fullDate)));
-  renderCalendar(newArr, defaultMonth);
+function getData() {
+  if (!localStorage[defaultYear]) {
+    fillDates(yearArr);
+    fetchHolidays(newArr);
+    renderCalendar(newArr, defaultMonth, defaultYear);
+  } else {
+    newArr = JSON.parse(localStorage[defaultYear]);
+    newArr.map((date) => (date.fullDate = new Date(date.fullDate)));
+    renderCalendar(newArr, defaultMonth, defaultYear);
+    console.log(newArr);
+  }
 }
+getData();
 
-function renderCalendar(arr, month) {
+function renderCalendar(arr, month, year) {
   monthContainer.innerHTML = `<p>MON</p>
   <p>TUE</p>
   <p>WED</p>
@@ -63,9 +69,11 @@ function renderCalendar(arr, month) {
   <p>FRI</p>
   <p>SAT</p>
   <p>SUN</p>`;
-  console.log(arr);
   arr.map((date, idx) => {
-    if (month === date.fullDate.getMonth()) {
+    if (
+      month === date.fullDate.getMonth() &&
+      year === date.fullDate.getFullYear()
+    ) {
       let dateContainer = document.createElement("div");
 
       dateContainer.innerHTML = `<strong>${date.fullDate.getDate()}</strong>`;
@@ -91,6 +99,7 @@ function renderCalendar(arr, month) {
       monthText.innerHTML = new Intl.DateTimeFormat("en-US", {
         month: "long",
       }).format(buttonDate.fullDate);
+      yearText.innerHTML = `-${defaultYear}`;
       showDate(buttonDate);
     }
   });
@@ -109,9 +118,23 @@ addTaskBtn.addEventListener("click", () => addTask(buttonDate));
 
 function pickMonth(side) {
   if (side === "left") {
-    if (defaultMonth === 0) return;
+    if (defaultMonth === 0) {
+      console.log(startDate);
+      startDate = new Date(`December 31, ${startDate.getFullYear() - 1}`);
+      console.log(startDate);
+      defaultYear--;
+      defaultMonth = 11;
+      getData();
+      let displayDate = new Date();
+      displayDate.setUTCMonth(defaultMonth);
+      monthText.innerHTML = new Intl.DateTimeFormat("en-US", {
+        month: "long",
+      }).format(displayDate);
+      return;
+    }
+
     defaultMonth--;
-    renderCalendar(newArr, defaultMonth);
+    renderCalendar(newArr, defaultMonth, defaultYear);
     let displayDate = new Date();
     displayDate.setUTCMonth(defaultMonth);
     monthText.innerHTML = new Intl.DateTimeFormat("en-US", {
@@ -119,9 +142,22 @@ function pickMonth(side) {
     }).format(displayDate);
   }
   if (side === "right") {
-    if (defaultMonth === 11) return;
+    if (defaultMonth === 11) {
+      console.log("before" + startDate);
+      startDate = new Date(`December 31, ${startDate.getFullYear()}`);
+      console.log("after" + startDate);
+      defaultYear++;
+      defaultMonth = 0;
+      getData();
+      let displayDate = new Date();
+      displayDate.setUTCMonth(defaultMonth);
+      monthText.innerHTML = new Intl.DateTimeFormat("en-US", {
+        month: "long",
+      }).format(displayDate);
+      return;
+    }
     defaultMonth++;
-    renderCalendar(newArr, defaultMonth);
+    renderCalendar(newArr, defaultMonth, defaultYear);
     let displayDate = new Date();
     displayDate.setUTCMonth(defaultMonth);
     monthText.innerHTML = new Intl.DateTimeFormat("en-US", {
@@ -227,7 +263,8 @@ function addTask(date) {
   date.tasklist.push(taskTextArea.value);
   taskTextArea.value = "";
   renderTasklist(date);
-  renderCalendar(newArr, defaultMonth);
+  renderCalendar(newArr, defaultMonth, defaultYear);
+  localStorage.setItem(defaultYear, JSON.stringify(newArr));
 }
 
 function renderTasklist(date) {
@@ -300,7 +337,7 @@ function fetchHolidays(arr) {
       }
     });
   }
-  localStorage.setItem("calendar", JSON.stringify(newArr));
+  localStorage.setItem(defaultYear, JSON.stringify(newArr));
 }
 
 // = { ...date, holiday: true };

@@ -82,3 +82,10 @@
 .holiday {
   border: 1px solid red;
 }
+
+.calendar-container > span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 1rem;
+}
