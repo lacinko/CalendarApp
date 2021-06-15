@@ -240,7 +240,7 @@ function setDay(day, div) {
 
 function showDate(date) {
   const { fullDate, idx, tasklist } = date;
-  dayText.innerHTML = fullDate.toLocaleDateString("us-US", {
+  dayText.innerHTML = fullDate.toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
     month: "long",
