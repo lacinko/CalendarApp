@@ -1,4 +1,4 @@
-let startDate = new Date("December 31, 2020");
+let startDate = new Date(2020, 11, 31);
 const yearArr = Array(365).fill("");
 let buttonDate = { fullDate: new Date() };
 buttonDate.fullDate.setHours(00, 00, 00, 00);
@@ -56,7 +56,6 @@ function getData() {
     newArr = JSON.parse(localStorage[defaultYear]);
     newArr.map((date) => (date.fullDate = new Date(date.fullDate)));
     renderCalendar(newArr, defaultMonth, defaultYear);
-    console.log(newArr);
   }
 }
 getData();
@@ -75,7 +74,6 @@ function renderCalendar(arr, month, year) {
       year === date.fullDate.getFullYear()
     ) {
       let dateContainer = document.createElement("div");
-
       dateContainer.innerHTML = `<strong>${date.fullDate.getDate()}</strong>`;
       dateContainer.classList.add(
         date.fullDate.getMonth(),
@@ -88,7 +86,6 @@ function renderCalendar(arr, month, year) {
       }
       //ADD HOLIDAY CLASS
       if (date.holiday) {
-        console.log("Vajicko?");
         dateContainer.classList.add("holiday");
       }
       //console.log(date);
@@ -119,9 +116,7 @@ addTaskBtn.addEventListener("click", () => addTask(buttonDate));
 function pickMonth(side) {
   if (side === "left") {
     if (defaultMonth === 0) {
-      console.log(startDate);
-      startDate = new Date(`December 31, ${startDate.getFullYear() - 1}`);
-      console.log(startDate);
+      startDate = new Date(defaultYear - 2, 11, 31);
       defaultYear--;
       defaultMonth = 11;
       getData();
@@ -143,9 +138,7 @@ function pickMonth(side) {
   }
   if (side === "right") {
     if (defaultMonth === 11) {
-      console.log("before" + startDate);
-      startDate = new Date(`December 31, ${startDate.getFullYear()}`);
-      console.log("after" + startDate);
+      startDate = new Date(defaultYear, 11, 31);
       defaultYear++;
       defaultMonth = 0;
       getData();
@@ -155,14 +148,15 @@ function pickMonth(side) {
         month: "long",
       }).format(displayDate);
       return;
+    } else {
+      defaultMonth++;
+      renderCalendar(newArr, defaultMonth, defaultYear);
+      let displayDate = new Date();
+      displayDate.setUTCMonth(defaultMonth);
+      monthText.innerHTML = new Intl.DateTimeFormat("en-US", {
+        month: "long",
+      }).format(displayDate);
     }
-    defaultMonth++;
-    renderCalendar(newArr, defaultMonth, defaultYear);
-    let displayDate = new Date();
-    displayDate.setUTCMonth(defaultMonth);
-    monthText.innerHTML = new Intl.DateTimeFormat("en-US", {
-      month: "long",
-    }).format(displayDate);
   }
 }
 
@@ -272,7 +266,7 @@ function renderTasklist(date) {
   if (date.tasklist) {
     date.tasklist.map((task) => {
       const taskItem = document.createElement("li");
-      taskItem.innerHTML = task;
+      taskItem.innerHTML = `${task}<i class="fas fa-trash-alt task-delete"></i><i class="fas fa-check-square task-complete"></i>`;
       tasklistContainer.appendChild(taskItem);
     });
   }
@@ -281,51 +275,51 @@ function renderTasklist(date) {
 function fetchHolidays(arr) {
   const publicHolidays = [
     {
-      fullDate: new Date(2021, 0, 1, 00, 0, 00, 00),
+      fullDate: new Date(defaultYear, 0, 1, 00, 0, 00, 00),
       name: "Deň obnovy samostatného Českého štátu, Nový rok - štátny sviatok",
     },
     {
-      fullDate: new Date(2021, 3, 5, 00, 0, 00, 00),
+      fullDate: new Date(defaultYear, 3, 5, 00, 0, 00, 00),
       name: "Veľkonočný pondelok - deň pracovného pokoja",
     },
     {
-      fullDate: new Date(2021, 4, 1, 00, 0, 00, 00),
+      fullDate: new Date(defaultYear, 4, 1, 00, 0, 00, 00),
       name: "Sviatok práce - deň pracovného pokoja",
     },
     {
-      fullDate: new Date(2021, 4, 8, 00, 0, 00, 00),
+      fullDate: new Date(defaultYear, 4, 8, 00, 0, 00, 00),
       name: "Deň oslobodenia od fašizmu - 1945 - štátny sviatok",
     },
     {
-      fullDate: new Date(2021, 6, 5, 00, 0, 00, 00),
+      fullDate: new Date(defaultYear, 6, 5, 00, 0, 00, 00),
       name: "Deň slovanských vierozvestov Cyrila a Metoda - štátny sviatok",
     },
     {
-      fullDate: new Date(2021, 6, 6, 00, 0, 00, 00),
+      fullDate: new Date(defaultYear, 6, 6, 00, 0, 00, 00),
       name: "Deň upálenia majstra Jana Husa - 1415 - štátny sviatok",
     },
     {
-      fullDate: new Date(2021, 8, 28, 00, 0, 00, 00),
+      fullDate: new Date(defaultYear, 8, 28, 00, 0, 00, 00),
       name: "Deň Českej štátnosti - štátny sviatok",
     },
     {
-      fullDate: new Date(2021, 9, 28, 00, 0, 00, 00),
+      fullDate: new Date(defaultYear, 9, 28, 00, 0, 00, 00),
       name: "Deň vzniku samostatného Československého štátu - 1918 - štátny sviatok",
     },
     {
-      fullDate: new Date(2021, 10, 17, 00, 0, 00, 00),
+      fullDate: new Date(defaultYear, 10, 17, 00, 0, 00, 00),
       name: "Deň boja za slobodu a demokraciu - 1989 - štátny sviatok",
     },
     {
-      fullDate: new Date(2021, 11, 24, 00, 0, 00, 00),
+      fullDate: new Date(defaultYear, 11, 24, 00, 0, 00, 00),
       name: "Štedrý deň - deň pracovného pokoja",
     },
     {
-      fullDate: new Date(2021, 11, 25, 00, 0, 00, 00),
+      fullDate: new Date(defaultYear, 11, 25, 00, 0, 00, 00),
       name: "1.sviatok Vianočný - deň pracovného pokoja",
     },
     {
-      fullDate: new Date(2021, 11, 26, 00, 0, 00, 00),
+      fullDate: new Date(defaultYear, 11, 26, 00, 0, 00, 00),
       name: "2.sviatok Vianočný - deň pracovného pokoja",
     },
   ];
