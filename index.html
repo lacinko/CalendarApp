@@ -14,18 +14,35 @@
   </head>
   <body>
     <div class="display-container">
-      <h1>Calendar</h1>
+      <header class="header">
+        <h1>Calendar</h1>
+        <nav class="nav">
+          <ul>
+            <li><a href="">MonthView</a></li>
+            <li><a href="">YearView</a></li>
+          </ul>
+        </nav>
+      </header>
       <div class="calendar-container">
-        <div class="btn-container">
-          <button id="left-arrow-btn">
-            <i class="fas fa-chevron-left fa-2x"></i>
-          </button>
-          <p class="render-month-text"></p>
-          <p class="render-year-text" id="year-text"></p>
-          <button id="right-arrow-btn">
-            <i class="fas fa-chevron-right fa-2x"></i>
-          </button>
-        </div>
+        <span>
+          <div class="btn-container">
+            <button id="left-arrow-btn">
+              <i class="fas fa-chevron-left fa-2x"></i>
+            </button>
+            <p class="render-month-text"></p>
+            <p class="render-year-text" id="year-text"></p>
+            <button id="right-arrow-btn">
+              <i class="fas fa-chevron-right fa-2x"></i>
+            </button>
+          </div>
+          <span class="info-text"
+            ><div class="task"></div>
+            <p>Task</p>
+
+            <div class="holiday"></div>
+            <p>Holiday</p></span
+          >
+        </span>
         <div class="month-container">
           <p>MON</p>
           <p>TUE</p>

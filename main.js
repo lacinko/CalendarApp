@@ -97,7 +97,7 @@ function renderCalendar(arr, month, year) {
         month: "long",
       }).format(buttonDate.fullDate);
       yearText.innerHTML = `-${defaultYear}`;
-      showDate(buttonDate);
+      showDate(buttonDate, dateContainer);
     }
   });
 
@@ -238,7 +238,7 @@ function setDay(day, div) {
   }
 }
 
-function showDate(date) {
+function showDate(date, container) {
   const { fullDate, idx, tasklist } = date;
   dayText.innerHTML = fullDate.toLocaleDateString("us-US", {
     weekday: "long",
@@ -248,7 +248,8 @@ function showDate(date) {
   });
 
   holidayText.innerHTML = date.holidayName || "";
-
+  console.log(date.idx === idx ? container : "");
+  //container.classList.add("active");
   buttonDate = date;
   renderTasklist(date);
 }
@@ -266,10 +267,26 @@ function renderTasklist(date) {
   if (date.tasklist) {
     date.tasklist.map((task) => {
       const taskItem = document.createElement("li");
-      taskItem.innerHTML = `${task}<i class="fas fa-trash-alt task-delete"></i><i class="fas fa-check-square task-complete"></i>`;
+      const deleteBtbn = document.createElement("button");
+      const completeBtn = document.createElement("button");
+      deleteBtbn.addEventListener("click", () => deleteTask(date));
+      completeBtn.addEventListener("click", () => completeTask(date));
+      deleteBtbn.innerHTML = `<i class="fas fa-trash-alt task-delete">`;
+      completeBtn.innerHTML = `</i><i class="fas fa-check-square task-complete">`;
+      taskItem.innerHTML = `${task}`;
+      taskItem.appendChild(deleteBtbn);
+      taskItem.appendChild(completeBtn);
       tasklistContainer.appendChild(taskItem);
     });
   }
+}
+
+function deleteTask(date) {
+  console.log(date);
+}
+
+function completeTask(date) {
+  console.log(date);
 }
 
 function fetchHolidays(arr) {
