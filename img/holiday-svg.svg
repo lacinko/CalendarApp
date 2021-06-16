@@ -1,0 +1,43 @@
+<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 741" width="480" height="741">
+	<title>holiday-svg</title>
+	<style>
+		tspan { white-space:pre }
+		.shp0 { fill: none;stroke: #0b4a70;stroke-linecap:round;stroke-linejoin:round;stroke-width: 21.921 } 
+		.shp1 { fill: none;stroke: #eaeaea;stroke-linecap:round;stroke-linejoin:round;stroke-width: 21.921 } 
+		.shp2 { fill: none;stroke: #0b4a70;stroke-linecap:round;stroke-width: 32.881 } 
+		.shp3 { fill: #0076ae } 
+		.shp4 { fill: #009dcb } 
+		.shp5 { fill: none;stroke: #0b4a70;stroke-linecap:round;stroke-linejoin:round;stroke-width: 40.188 } 
+		.shp6 { fill: none;stroke: #0076ae;stroke-linecap:round;stroke-linejoin:round;stroke-width: 21.921 } 
+		.shp7 { fill: #b3e2e5 } 
+		.shp8 { fill: #f8df88 } 
+		.shp9 { fill: #ffffff } 
+	</style>
+	<g id="Layer_1_1_">
+		<g id="Layer">
+			<path id="Layer" class="shp0" d="M33 332.4L110.3 332.4L110.3 468.4L33 468.4L33 332.4Z" />
+			<path id="Layer" class="shp1" d="M178.1 38L347.8 38L347.8 166.6L178.1 166.6L178.1 38Z" />
+			<path id="Layer" class="shp2" d="M133.7 650.6L133.7 694" />
+			<path id="Layer" class="shp2" d="M389.5 650.6L389.5 694" />
+			<path id="Layer" class="shp3" d="M393.4 686.9L124.8 686.9C93 686.9 67.2 661.1 67.2 629.3L67.2 244.7C67.2 212.9 93 187.1 124.8 187.1L393.4 187.1C425.2 187.1 451 212.9 451 244.7L451 629.4C451 661.1 425.2 686.9 393.4 686.9Z" />
+			<path id="Layer" class="shp4" d="M393.4 650.4L124.8 650.4C93 650.4 67.2 624.6 67.2 592.8L67.2 208.1C67.2 176.3 93 150.5 124.8 150.5L393.4 150.5C425.2 150.5 451 176.3 451 208.1L451 592.8C451 624.6 425.2 650.4 393.4 650.4Z" />
+			<path id="Layer" class="shp5" d="M160.9 38L363.9 38" />
+			<g id="Layer">
+				<path id="Layer" class="shp6" d="M159.7 241.2L159.7 557.3" />
+				<path id="Layer" class="shp6" d="M225.9 241.2L225.9 557.3" />
+				<path id="Layer" class="shp6" d="M292.2 241.2L292.2 557.3" />
+				<path id="Layer" class="shp6" d="M358.4 241.2L358.4 557.3" />
+			</g>
+			<path id="Layer" class="shp7" d="M195.3 127.6C193.4 125.9 191.3 124.6 188.9 123.7L188.9 131.8C189.4 132.1 189.9 132.5 190.4 132.9L190.4 132.9C193.4 135.7 194.7 140 194.1 145.2C193.4 150.8 190.6 156.6 186.1 161.4C177.2 171.1 164.6 174 158 167.9C155 165.1 153.7 160.8 154.3 155.6C155 150 157.8 144.2 162.3 139.4C163.8 137.8 165.4 136.4 167.1 135.2L167.1 126.5C163.4 128.5 159.9 131.2 156.9 134.5C151.4 140.5 147.9 147.6 147 154.8C146.1 162.4 148.2 168.9 152.9 173.4C156.5 176.8 161.3 178.4 166.5 178.4C174.8 178.4 184.1 174.2 191.3 166.5C196.8 160.5 200.3 153.4 201.2 146.2C202.2 138.6 200.1 132 195.3 127.6Z" />
+			<g id="Layer">
+				<path id="Layer" fill-rule="evenodd" class="shp8" d="M196.6 203.5L154.9 272.6C152.3 277 146.6 278.4 142.2 275.8L97.6 248.9C93.2 246.3 91.8 240.6 94.4 236.2L136.1 167.1C139 162.3 143.2 158.5 148.2 156.2L156.4 152.4C160.6 150.4 165.5 150.7 169.5 153.1L193.4 167.5C197.4 169.9 199.9 174.1 200.1 178.7L200.5 187.8C200.8 193.3 199.4 198.8 196.6 203.5ZM179.2 179.1C181.5 175.4 180.3 170.6 176.6 168.4C172.9 166.1 168.1 167.3 165.9 171C163.6 174.7 164.8 179.5 168.5 181.7C172.2 183.9 177 182.7 179.2 179.1Z" />
+				<path id="Layer" class="shp9" d="M107.38 237.84L126.79 205.64L165.93 229.23L146.52 261.43L107.38 237.84Z" />
+				<path id="Layer" class="shp9" d="M132.34 196.67L135.54 191.36L174.68 214.95L171.48 220.26L132.34 196.67Z" />
+				<path id="Layer" class="shp9" d="M139.45 184.86L142.65 179.55L181.79 203.14L178.59 208.45L139.45 184.86Z" />
+			</g>
+			<g id="Layer">
+				<path id="Layer" class="shp7" d="M176.8 168.5C177.1 171.3 178.6 173.3 180.3 174.8C184.2 172.8 188 170 191.4 166.4L191.5 166.3C191.5 166.3 190.6 164.9 188.8 163.8C187 162.7 185 162.4 185 162.4C182.5 165 179.7 167.1 176.8 168.5Z" />
+			</g>
+		</g>
+	</g>
+</svg>

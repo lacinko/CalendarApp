@@ -3,6 +3,7 @@ const yearArr = Array(365).fill("");
 let buttonDate = { fullDate: new Date() };
 buttonDate.fullDate.setHours(00, 00, 00, 00);
 let newArr = [];
+let divArr = [];
 //JSON.parse(localStorage.getItem("calendar")) ||
 let defaultMonth = buttonDate.fullDate.getMonth();
 let defaultYear = startDate.getFullYear() + 1;
@@ -35,6 +36,11 @@ const tasklistContainer = document.querySelector(".tasklist-container");
 const addTaskBtn = document.querySelector("#add-task-btn");
 const taskTextArea = document.querySelector("#task-text-area");
 const holidayText = document.querySelector(".holiday-text");
+const sidebarContainer = document.querySelector("sidebar-container");
+const holidaypreviewContainer = document.querySelector(
+  ".holidaypreview-container"
+);
+const taskpreviewContainer = document.querySelector(".taskpreview-container");
 
 function fillDates(arr) {
   newArr = [];
@@ -68,6 +74,8 @@ function renderCalendar(arr, month, year) {
   <p>FRI</p>
   <p>SAT</p>
   <p>SUN</p>`;
+  holidaypreviewContainer.innerHTML = ``;
+  taskpreviewContainer.innerHTML = ``;
   arr.map((date, idx) => {
     if (
       month === date.fullDate.getMonth() &&
@@ -88,7 +96,9 @@ function renderCalendar(arr, month, year) {
       if (date.holiday) {
         dateContainer.classList.add("holiday");
       }
-      //console.log(date);
+
+      monthPreview(date);
+
       setDay(date.fullDate.getDay(), dateContainer);
       dateContainer.addEventListener("click", () => showDate(date));
       monthContainer.appendChild(dateContainer);
@@ -100,7 +110,13 @@ function renderCalendar(arr, month, year) {
       showDate(buttonDate, dateContainer);
     }
   });
-
+  if (holidaypreviewContainer.childElementCount === 0) {
+    console.log(holidaypreviewContainer.childElementCount);
+    holidaypreviewContainer.innerHTML = `<strong>No holidays this month, sorry.</strong>`;
+  }
+  if (taskpreviewContainer.childElementCount === 0) {
+    taskpreviewContainer.innerHTML = `<strong>No tasks this month, nice, enjoy your free time.</strong>`;
+  }
   newArr.filter((date, idx) => {
     date.fullDate.getTime() === buttonDate.fullDate.getTime()
       ? (buttonDate = date)
@@ -127,7 +143,6 @@ function pickMonth(side) {
       }).format(displayDate);
       return;
     }
-
     defaultMonth--;
     renderCalendar(newArr, defaultMonth, defaultYear);
     let displayDate = new Date();
@@ -238,7 +253,33 @@ function setDay(day, div) {
   }
 }
 
+function monthPreview(date) {
+  if (date.holiday) {
+    let displayContainer = document.createElement("div");
+    displayContainer.innerHTML = `<p>${date.fullDate.toLocaleDateString(
+      "en-US",
+      { weekday: "long", year: "numeric", month: "long", day: "numeric" }
+    )}</p>
+    <strong>${date.holidayName}</strong>`;
+    displayContainer.classList.add("holiday-preview-text");
+    holidaypreviewContainer.appendChild(displayContainer);
+  }
+  if (date.tasklist) {
+    date.tasklist.forEach((task) => {
+      let displayContainer = document.createElement("div");
+      displayContainer.innerHTML = `<p>${date.fullDate.toLocaleDateString(
+        "en-US",
+        { weekday: "long", year: "numeric", month: "long", day: "numeric" }
+      )}</p>
+      <strong>${task}</strong>`;
+      displayContainer.classList.add("task-preview-text");
+      taskpreviewContainer.appendChild(displayContainer);
+    });
+  }
+}
+
 function showDate(date, container) {
+  divArr.push(container);
   const { fullDate, idx, tasklist } = date;
   dayText.innerHTML = fullDate.toLocaleDateString("en-US", {
     weekday: "long",
@@ -246,10 +287,8 @@ function showDate(date, container) {
     month: "long",
     day: "numeric",
   });
-
+  //openPopup(date);
   holidayText.innerHTML = date.holidayName || "";
-  console.log(date.idx === idx ? container : "");
-  //container.classList.add("active");
   buttonDate = date;
   renderTasklist(date);
 }
@@ -262,14 +301,27 @@ function addTask(date) {
   localStorage.setItem(defaultYear, JSON.stringify(newArr));
 }
 
+/*function openPopup(date) {
+  let window = document.createElement("div");
+  window.style =
+    "position:fixed;top:0;left:0;width:15vw;height:30vh;background:white;transform:translate(calc(50vw - 50%), calc(50vh - 50%))";
+  window.innerHTML = "NAZDARZ";
+  document.querySelector(".display-container").appendChild(window);
+  setTimeout(() => {
+    // hide after three seconds
+    window.remove();
+  }, 3000);
+}
+*/
+
 function renderTasklist(date) {
   tasklistContainer.innerHTML = " ";
   if (date.tasklist) {
-    date.tasklist.map((task) => {
+    date.tasklist.map((task, idx) => {
       const taskItem = document.createElement("li");
       const deleteBtbn = document.createElement("button");
       const completeBtn = document.createElement("button");
-      deleteBtbn.addEventListener("click", () => deleteTask(date));
+      deleteBtbn.addEventListener("click", () => deleteTask(date, idx));
       completeBtn.addEventListener("click", () => completeTask(date));
       deleteBtbn.innerHTML = `<i class="fas fa-trash-alt task-delete">`;
       completeBtn.innerHTML = `</i><i class="fas fa-check-square task-complete">`;
@@ -281,8 +333,10 @@ function renderTasklist(date) {
   }
 }
 
-function deleteTask(date) {
-  console.log(date);
+function deleteTask(date, idx) {
+  date.tasklist.splice(idx, 1);
+  renderTasklist(date);
+  renderCalendar(newArr, defaultMonth, defaultYear);
 }
 
 function completeTask(date) {

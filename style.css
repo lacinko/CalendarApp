@@ -6,17 +6,23 @@
   padding: 0;
 }
 
+body {
+  font-family: "Roboto", sans-serif;
+}
+
 .calendar-container {
   flex: 0.6;
   display: flex;
   flex-direction: column;
-  border: 3px solid black;
+  border-top: 3px solid black;
+  border-bottom: 3px solid black;
 }
 
 .display-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 .display-container > * {
   padding: 2rem;
@@ -74,12 +80,25 @@
 #add-task-btn {
   border: none;
   background: none;
-  color: black;
+  color: #0b44c0;
   cursor: pointer;
 }
 
-.notes-container {
+#add-task-btn:hover {
+  color: black;
+}
+
+.sidebar-container {
   flex: 0.3;
+  display: flex;
+  flex-direction: column;
+  border-left: 3px solid black;
+  align-self: stretch;
+  overflow-y: scroll;
+}
+
+.notes-container {
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
 }
@@ -111,13 +130,17 @@
   justify-content: center;
   align-items: center;
   color: white;
-  height: 100vh;
+  align-self: stretch;
   flex: 0.1;
 }
 
 .nav > ul > li > a {
   text-decoration: none;
   color: white;
+}
+
+.nav > ul > li {
+  padding: 0.5rem 0;
 }
 
 .nav > ul {
@@ -151,4 +174,86 @@
   height: 0.5rem;
   border-radius: 999px;
   background: red;
+}
+
+.info-text > p {
+  margin-right: 1rem;
+}
+
+.day-text {
+  background: #0b44c0;
+  color: white;
+  border-radius: 999px;
+  padding-left: 0.8rem;
+  font-size: 1.3rem;
+}
+
+.holiday-preview-text,
+.task-preview-text {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  border-bottom: 1px solid grey;
+}
+
+.holiday-preview-text > *,
+.task-preview-text > * {
+  padding: 0.2rem 0;
+  padding-left: 0.5rem;
+}
+.holiday-preview-text > strong,
+.task-preview-text > strong {
+  padding-left: 1.5rem;
+}
+
+.holiday-heading-container,
+.task-heading-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.task-heading-container,
+.holidaypreview-container {
+  margin-top: 2rem;
+}
+
+.holiday-heading-container > img {
+  height: 7vh;
+  width: 7vw;
+  margin-right: 0.1rem;
+}
+
+.task-heading-container > img {
+  height: 7vh;
+  width: 7vw;
+  margin-right: 1rem;
+}
+
+#task-text-area {
+  resize: none;
+}
+
+.tasklist-container {
+  list-style: none;
+  color: black;
+  font-weight: 500;
+}
+
+.tasklist-container > li {
+  font-size: 1.3rem;
+  padding: 0.5rem 0;
+}
+
+.tasklist-container > li > button {
+  border: none;
+  font-size: 1.1rem;
+  padding: 0 0.5rem;
+  background: none;
+  color: #0b44c0;
+  cursor: pointer;
+}
+
+.tasklist-container > li > button:hover {
+  color: black;
 }
